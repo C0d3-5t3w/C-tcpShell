@@ -1,0 +1,40 @@
+cmake_minimum_required(VERSION 3.10)
+project(tcp_shell C)
+
+# Set C standard
+set(CMAKE_C_STANDARD 11)
+
+# Add include directories
+include_directories(src)
+
+# Add source files
+set(SOURCES
+    src/main.c
+    src/config/config.c
+    src/tcp/tcp.c
+    src/tcp/shell.c
+    src/tcp/utils.c
+)
+
+# Create executable
+add_executable(tcp_shell ${SOURCES})
+
+# Link with required libraries
+target_link_libraries(tcp_shell pthread)
+
+# Install target
+install(TARGETS tcp_shell DESTINATION bin)
+install(FILES config.yaml DESTINATION etc/tcp_shell)
+
+# Copy config.yaml to the binary directory for easy testing
+configure_file(config.yaml ${CMAKE_BINARY_DIR}/config.yaml COPYONLY)
+
+# Add testing target
+add_custom_target(run
+    COMMAND tcp_shell
+    DEPENDS tcp_shell
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+)
+
+message(STATUS "Build with: cmake --build .")
+message(STATUS "Run with: cmake --build . --target run")

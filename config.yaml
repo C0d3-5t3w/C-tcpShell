@@ -1,0 +1,14 @@
+# TCP Shell Configuration
+
+# Server settings
+host: 0.0.0.0       # Listen on all interfaces
+port: 4444           # Port to listen on
+backlog: 5           # Maximum number of pending connections
+buffer_size: 4096    # Buffer size for sending/receiving data
+timeout_seconds: 60  # Connection timeout in seconds
+
+# Shell settings
+motd: "Welcome to TCP Shell - Type 'exit' or 'quit' to disconnect"
+
+# Debug settings
+debug_mode: true
